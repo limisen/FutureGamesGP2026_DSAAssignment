@@ -6,6 +6,8 @@ public class DataToArrayTask : Task
 {
     public override void Execute()
     {
+        throw new System.NotImplementedException();
+        
         // Take the passed data and add it to an array.
         foreach (var item in name)
         {

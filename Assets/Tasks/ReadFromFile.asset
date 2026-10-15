@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772572d8b9067ed499d7ce99257216c4, type: 3}
   m_Name: ReadFromFile
   m_EditorClassIdentifier: Assembly-CSharp::ReadFromFile
-  FileToRead: {fileID: 0}
+  FileToRead: {fileID: 4900000, guid: ddc38905690ba094496921567a861088, type: 3}
+  TaskToPassDataTO: {fileID: 0}

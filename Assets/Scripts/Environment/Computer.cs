@@ -24,7 +24,7 @@ namespace Environment
                 foreach (var item in startUpTasks)
                 {
                     queue.Enqueue(item);
-                    Debug.Log(queue.Count);
+                    //Debug.Log(queue.Count);
                 }
                 currentTask = queue.Peek();
             }
