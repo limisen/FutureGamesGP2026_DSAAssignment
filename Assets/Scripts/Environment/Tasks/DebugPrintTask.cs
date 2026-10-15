@@ -2,7 +2,7 @@
 
 namespace Environment.Tasks 
 {
-    [CreateAssetMenu(fileName = "DebugPrint Task", menuName = "DebugPrint Task")]
+    [CreateAssetMenu(fileName = "DebugPrint Task", menuName = "Scriptable Objects/DebugPrint Task")]
     public class DebugPrintTask : Task
     {
         [SerializeField] private string textToPrint = "Hi, I'm a test task!";
