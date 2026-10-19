@@ -1,4 +1,5 @@
 using Environment.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,25 +8,29 @@ public class ReadFromFile : Task
 {
     List<string> Data = new List<string>();
     [SerializeField] TextAsset FileToRead;
-    [SerializeField] Task TaskToPassDataTO;
+    [SerializeField] DataToArrayTask TaskToPassDataTO;
 
     public override void Execute()
     {
+        if (FileToRead == null) return;
+
         // "Read" the file
         Debug.Log($"Path: {FileToRead}");
-        
+
+        Employee[] Data = JsonUtility.FromJson<EmployeeArray>(FileToRead.text)?.employees;
         // Parse the data from the file
 
-        // split it up by person
-        foreach (string item in FileToRead.text.Split("},"))
+        foreach (var item in Data)
         {
-            Debug.Log("Item: " + item);
-            Data.Add(item);
+            Debug.Log("EmployeeName: " + item.name);
+            Debug.Log("EmployeeId: " + item.employeeId);
+            Debug.Log("hasEngineRoomClearance: " + item.hasEngineRoomClearance);
+            Debug.Log("lastEntranceInEngineRoom: " + item.lastEntranceInEngineRoom);
+            item.lastEntranceInEngineRoomDate = DateTime.Parse(item.lastEntranceInEngineRoom);
+            Debug.Log("lastEntranceInEngineRoomDate: " + item.lastEntranceInEngineRoomDate);
+            Debug.Log("lastExitFromEngineRoom: " + item.lastExitFromEngineRoom);
         }
-
+        TaskToPassDataTO.employees = Data;
         // pass it to the seperate Task...
-
-
-        //Debug.Log(JsonUtility.FromJson<ScriptableObject>("Assets/Json/testEmployees"));
     }
 }
