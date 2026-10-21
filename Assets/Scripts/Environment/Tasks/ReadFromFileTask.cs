@@ -8,7 +8,7 @@ public class ReadFromFile : Task
 {
     List<string> Data = new List<string>();
     [SerializeField] TextAsset FileToRead;
-    [SerializeField] DataToArrayTask TaskToPassDataTO;
+    [SerializeField] DataStorageTask TaskToPassDataTO;
 
     public override void Execute()
     {
