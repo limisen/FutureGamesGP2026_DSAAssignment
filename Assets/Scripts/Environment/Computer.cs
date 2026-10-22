@@ -26,7 +26,6 @@ namespace Environment
                     queue.Enqueue(item);
                     //Debug.Log(queue.Count);
                 }
-                currentTask = queue.Peek();
             }
         }
 
@@ -40,11 +39,9 @@ namespace Environment
             }
             else
             {
-                currentTask = queue.Peek();
+                currentTask = queue.Dequeue();
 
                 currentTask.Execute();
-
-                currentTask = queue.Dequeue();
             }
         }
     }

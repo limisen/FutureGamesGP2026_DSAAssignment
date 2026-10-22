@@ -30,7 +30,8 @@ public class ReadFromFile : Task
             Debug.Log("lastEntranceInEngineRoomDate: " + item.lastEntranceInEngineRoomDate);
             Debug.Log("lastExitFromEngineRoom: " + item.lastExitFromEngineRoom);
         }
-        TaskToPassDataTO.employees = Data;
+
         // pass it to the seperate Task...
+        TaskToPassDataTO.employees = Data;
     }
 }
