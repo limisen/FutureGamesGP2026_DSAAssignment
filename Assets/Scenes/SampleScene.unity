@@ -5643,7 +5643,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ff03f0eefaebe9e40aa1e0d120fb14ac, type: 2}
     - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
       propertyPath: startUpTasks.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
       propertyPath: 'startUpTasks.Array.data[0]'
@@ -5652,7 +5652,7 @@ PrefabInstance:
     - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
       propertyPath: 'startUpTasks.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 457571fe0713d9d42abeff8ada485e7c, type: 2}
+      objectReference: {fileID: 11400000, guid: 8033fcaa92bb6bd4280e335d7109284d, type: 2}
     - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
       propertyPath: 'startUpTasks.Array.data[2]'
       value: 

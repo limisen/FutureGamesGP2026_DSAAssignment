@@ -61,12 +61,13 @@ public class SortDataTask : Task
                     maxItteration--;
                 }
             }
-            // IF we havnt swapped break out of the loop
+            // IF we havn't swapped, assume the collection is sorted and break out of the loop
             if (!hasSwapped) { break; }
         }
         #endregion End of Bubble Sort Code
 
         #region Merge Sort
+        // Incomplete Implimentation 
         //Debug.Log("Unsorted: ");
         //foreach (var item in arrayToSort)
         //{
