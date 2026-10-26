@@ -80,7 +80,7 @@ public class SortDataTask : Task
     // Incomplete Implimentation 
     private int[] MergeSort(int[] arrayToSort)
     {
-        // Exit Early if the Collection is too small to split. Meaning it's already sorted by default.
+        // Exit Early if the Collection is too small to split.
         if (arrayToSort.Length <= 1) { return arrayToSort; }
 
         // With how C# does Int division it results in the floor of the division result. aka 1 / 2 = 1
@@ -90,7 +90,7 @@ public class SortDataTask : Task
         int[] firstHalf = MergeSort(arrayToSort.Take(mid).ToArray());
         int[] secondHalf = MergeSort(arrayToSort.Skip(mid).ToArray());
 
-        // Merge the two collections into the arrayToSort via a helper method
+        // Merge the two collections into the arrayToSort via a helper (Merge) method, Ultimatelly returning the now sorted collection
         return Merge(firstHalf, secondHalf);
     }
 
@@ -117,11 +117,11 @@ public class SortDataTask : Task
                 sortedArray[k] = secondHalf[j];
                 j++;
             }
-            // increase the itterator so we assign to the next spot in the collection
+            // increase the itterator so we assign to the next spot in the return collection
             k++;
         }
 
-        // incase we are in a extreeme scenario make sure no elements get missed.
+        // incase we finish comparring elements with out checking them all. Add them to the end of the return collection, (prioratising the fistHalf).
         while (i < firstHalf.Length)
         {
             sortedArray[k] = firstHalf[i];
@@ -138,7 +138,6 @@ public class SortDataTask : Task
 
         return sortedArray;
     }
-
     #endregion End of Merge Sort Code
 
     #region Quick Sort
