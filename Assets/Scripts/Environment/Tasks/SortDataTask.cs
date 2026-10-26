@@ -67,7 +67,6 @@ public class SortDataTask : Task
         #endregion End of Bubble Sort Code
 
         #region Merge Sort
-        // Incomplete Implimentation 
         arrayToSort = MergeSort(arrayToSort);
         #endregion End of Merge Sort Code
 
@@ -77,7 +76,6 @@ public class SortDataTask : Task
     }
 
     #region Merge Sort
-    // Incomplete Implimentation 
     private int[] MergeSort(int[] arrayToSort)
     {
         // Exit Early if the Collection is too small to split.
