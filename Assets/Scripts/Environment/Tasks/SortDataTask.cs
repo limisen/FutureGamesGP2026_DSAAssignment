@@ -67,78 +67,102 @@ public class SortDataTask : Task
         #endregion End of Bubble Sort Code
 
         #region Merge Sort
-        arrayToSort = MergeSort(arrayToSort);
+        //arrayToSort = MergeSort(arrayToSort);
         #endregion End of Merge Sort Code
 
         #region Quick Sort
-
+        arrayToSort = QuickSort(arrayToSort);
         #endregion End of Quick Sort Code
     }
 
     #region Merge Sort
-    private int[] MergeSort(int[] arrayToSort)
-    {
-        // Exit Early if the Collection is too small to split.
-        if (arrayToSort.Length <= 1) { return arrayToSort; }
+    //private int[] MergeSort(int[] arrayToSort)
+    //{
+    //    // Exit Early if the Collection is too small to split.
+    //    if (arrayToSort.Length <= 1) { return arrayToSort; }
 
-        // With how C# does Int division it results in the floor of the division result. aka 1 / 2 = 1
-        int mid = arrayToSort.Length / 2;
+    //    // With how C# does Int division it results in the floor of the division result. aka 1 / 2 = 1
+    //    int mid = arrayToSort.Length / 2;
 
-        // Split the collection and recursivley call this function untill both the first- and second-Halves are of size 1
-        int[] firstHalf = MergeSort(arrayToSort.Take(mid).ToArray());
-        int[] secondHalf = MergeSort(arrayToSort.Skip(mid).ToArray());
+    //    // Split the collection and recursivley call this function untill both the first- and second-Halves are of size 1
+    //    int[] firstHalf = MergeSort(arrayToSort.Take(mid).ToArray());
+    //    int[] secondHalf = MergeSort(arrayToSort.Skip(mid).ToArray());
 
-        // Merge the two collections into the arrayToSort via a helper (Merge) method, Ultimatelly returning the now sorted collection
-        return Merge(firstHalf, secondHalf);
-    }
+    //    // Merge the two collections into the arrayToSort via a helper (Merge) method, Ultimatelly returning the now sorted collection
+    //    return Merge(firstHalf, secondHalf);
+    //}
 
-    private int[] Merge(int[] firstHalf, int[] secondHalf)
-    {
-        // define the size of the return collection
-        int[] sortedArray = new int[firstHalf.Length + secondHalf.Length];
+    //private int[] Merge(int[] firstHalf, int[] secondHalf)
+    //{
+    //    // define the size of the return collection
+    //    int[] sortedArray = new int[firstHalf.Length + secondHalf.Length];
 
-        // set-up our itteratiors
-        int i = 0;
-        int j = 0;
-        int k = 0;
+    //    // set-up our itteratiors
+    //    int i = 0;
+    //    int j = 0;
+    //    int k = 0;
 
-        // Compare the elements and assign them their correct position in the collection to be returned
-        while (i < firstHalf.Length && j < secondHalf.Length)
-        {
-            if (firstHalf[i] <= secondHalf[j])
-            {
-                sortedArray[k] = firstHalf[i];
-                i++;
-            }
-            else
-            {
-                sortedArray[k] = secondHalf[j];
-                j++;
-            }
-            // increase the itterator so we assign to the next spot in the return collection
-            k++;
-        }
+    //    // Compare the elements and assign them their correct position in the collection to be returned
+    //    while (i < firstHalf.Length && j < secondHalf.Length)
+    //    {
+    //        if (firstHalf[i] <= secondHalf[j])
+    //        {
+    //            sortedArray[k] = firstHalf[i];
+    //            i++;
+    //        }
+    //        else
+    //        {
+    //            sortedArray[k] = secondHalf[j];
+    //            j++;
+    //        }
+    //        // increase the itterator so we assign to the next spot in the return collection
+    //        k++;
+    //    }
 
-        // incase we finish comparring elements with out checking them all. Add them to the end of the return collection, (prioratising the fistHalf).
-        while (i < firstHalf.Length)
-        {
-            sortedArray[k] = firstHalf[i];
-            i++;
-            k++;
-        }
+    //    // incase we finish comparring elements with out checking them all. Add them to the end of the return collection, (prioratising the fistHalf).
+    //    while (i < firstHalf.Length)
+    //    {
+    //        sortedArray[k] = firstHalf[i];
+    //        i++;
+    //        k++;
+    //    }
 
-        while (j < secondHalf.Length)
-        {
-            sortedArray[k] = secondHalf[j];
-            j++;
-            k++;
-        }
+    //    while (j < secondHalf.Length)
+    //    {
+    //        sortedArray[k] = secondHalf[j];
+    //        j++;
+    //        k++;
+    //    }
 
-        return sortedArray;
-    }
+    //    return sortedArray;
+    //}
     #endregion End of Merge Sort Code
 
     #region Quick Sort
+    private int[] QuickSort(int[] arrayToSort)
+    {
+        // If the collection is less or equal to 1 exit early
+        if (arrayToSort.Length <= 1) { return arrayToSort; }
 
+        // Pick a pivot (element)
+        int pivot = Random.Range(0, arrayToSort.Length);
+        int pivotElemnet = arrayToSort[pivot];
+
+        // Split the collection with the pivot as the divider between the two. Then recursivley call this function
+        for (int i = 0; i < pivot; i++)
+        {
+            if (arrayToSort[i] < pivotElemnet)
+            {
+                // do nothing?
+            }
+            else
+            {
+                // move the pivot so this element comes after the pivot, in the collcetion.
+            }
+        }
+
+        // Return the sorted collection
+        return arrayToSort;
+    }
     #endregion End of Qick Sort Code
 }
