@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238af02765f25df4db1bb96bf51dd4cd, type: 3}
   m_Name: SortDataTask
   m_EditorClassIdentifier: Assembly-CSharp::SortDataTask
+  DataToBeSorted: {fileID: 11400000, guid: 190d0472f5bfe1a4daa5ba841d00f545, type: 2}
