@@ -76,6 +76,8 @@ public class SortDataTask : Task
         #region Quick Sort
         //arrayToSort = QuickSort(arrayToSort);
         #endregion End of Quick Sort Code
+
+        DataToBeSorted.employees = arrayToSort;
     }
 
     #region Merge Sort
