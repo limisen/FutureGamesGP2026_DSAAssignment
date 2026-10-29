@@ -5,28 +5,49 @@
       "employeeId": 192,
       "hasEngineRoomClearance": false,
       "lastEntranceInEngineRoom": "1970-01-01T00:00:00",
-      "lastExitFromEngineRoom": "1970-01-01T00:00:00"
+      "lastExitFromEngineRoom": "1970-01-01T00:00:01"
     },
     {
       "name": "Nem Tudom",
       "employeeId": 665,
       "hasEngineRoomClearance": true,
       "lastEntranceInEngineRoom": "2234-08-09T22:13:17",
-      "lastExitFromEngineRoom": "2234-08-09T22:13:22"
+      "lastExitFromEngineRoom": "2234-08-09T22:14:22"
     },
     {
-      "name": "Jane  Sanchez",
+      "name": "Jane Sanchez",
       "employeeId": 431,
       "hasEngineRoomClearance": true,
-      "lastEntranceInEngineRoom": "2234-08-09T22:13:12",
-      "lastExitFromEngineRoom": "2234-08-09T22:13:19"
+      "lastEntranceInEngineRoom": "2234-07-09T22:13:12",
+      "lastExitFromEngineRoom": "2234-07-10T22:13:19"
     },
     {
-      "name": "Rick  Sanchez",
+      "name": "Rick Sanchez",
       "employeeId": 42,
       "hasEngineRoomClearance": true,
       "lastEntranceInEngineRoom": "2016-08-09T22:13:12",
       "lastExitFromEngineRoom": "2016-08-09T22:14:19"
+    },
+    {
+      "name": "Jaun Fernades",
+      "employeeId": 76,
+      "hasEngineRoomClearance": true,
+      "lastEntranceInEngineRoom": "1988-01-06T17:13:12",
+      "lastExitFromEngineRoom": "1988-07-06T18:14:19"
+    },
+    {
+      "name": "Boby Berg",
+      "employeeId": 200,
+      "hasEngineRoomClearance": true,
+      "lastEntranceInEngineRoom": "2020-08-22T06:55:12",
+      "lastExitFromEngineRoom": "2020-08-22T07:10:19"
+    },
+    {
+      "name": "Alexander Bernsley",
+      "employeeId": 525,
+      "hasEngineRoomClearance": true,
+      "lastEntranceInEngineRoom": "2019-02-12T07:13:12",
+      "lastExitFromEngineRoom": "2020-02-13T00:14:19"
     }
   ]
 }
