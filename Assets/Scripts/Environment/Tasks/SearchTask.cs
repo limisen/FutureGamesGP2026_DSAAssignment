@@ -8,11 +8,15 @@ public class SearchTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSearched;
 
+    [SerializeField] Employee foundElement;
+
     public override void Execute()
     {
         #region Binary Search
         DateTime searchArg = DateTime.Parse("2021-08-22T06:55:12");
         Employee killer = BinarySearch(DataToBeSearched.employees, searchArg);
+
+        foundElement = killer;
 
         #endregion End of Binary Search code
     }
@@ -23,7 +27,7 @@ public class SearchTask : Task
         // Early Exit condition so we dont recurse infinitely
         if (DataToBeSearched.Length < 1) { return null; }
 
-
+        // Calculate/find the median of the collection
         int median = DataToBeSearched.Length / 2;
 
         // If the element at the median index == searchArg, return that element
