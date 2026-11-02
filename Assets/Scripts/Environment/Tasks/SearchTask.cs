@@ -22,8 +22,13 @@ public class SearchTask : Task
         DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
 
         Debug.Log($"Starting search for a element with specified date: {SingularSearchArg}");
+        float singularSearchStartTime = Time.realtimeSinceStartup;
 
         Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
+
+        float singularSearchEndTime = Time.realtimeSinceStartup;
+
+        Debug.Log($"Singular Search took: {singularSearchEndTime - singularSearchStartTime} seconds to complete.");
 
         if (foundElement != null)
         {
@@ -33,7 +38,7 @@ public class SearchTask : Task
         {
             Debug.Log("Found no element that matches the search criteria.");
         }
-        #endregion Singular Binary Search
+        #endregion End of Singular Binary Search code
 
         #region Ranged Binary Search
         DateTime SearchArgMin = DateTime.Parse(SearchArgMinString);
@@ -50,7 +55,13 @@ public class SearchTask : Task
 
         Debug.Log("Starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
 
+        float rangedSearchStartTime = Time.realtimeSinceStartup;
+
         List<Employee> killers = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
+
+        float rangedSearchEndTime = Time.realtimeSinceStartup;
+
+        Debug.Log($"Ranged Search took: {rangedSearchEndTime - rangedSearchStartTime} seconds to complete.");
 
         foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
@@ -64,6 +75,8 @@ public class SearchTask : Task
         }
 
         #endregion End of Ranged Binary Search code
+
+        Debug.Log($"Time difference between the two searches: {Math.Abs((singularSearchEndTime - singularSearchStartTime) - (rangedSearchEndTime - rangedSearchStartTime))} seconds.");
     }
 
     #region Singular Binary Search
