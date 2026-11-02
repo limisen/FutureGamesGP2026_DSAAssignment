@@ -20,18 +20,22 @@ public class ReadFromFile : Task
         Employee[] Data = JsonUtility.FromJson<EmployeeArray>(FileToRead.text)?.employees;
         // Parse the data from the file
 
+        // Display ($"Data: {Data}")
         foreach (var item in Data)
         {
             Debug.Log("EmployeeName: " + item.name);
             Debug.Log("EmployeeId: " + item.employeeId);
             Debug.Log("hasEngineRoomClearance: " + item.hasEngineRoomClearance);
             Debug.Log("lastEntranceInEngineRoom: " + item.lastEntranceInEngineRoom);
+
+            // Convert the string to a DateTime object
             item.lastEntranceInEngineRoomDate = DateTime.Parse(item.lastEntranceInEngineRoom);
             Debug.Log("lastEntranceInEngineRoomDate: " + item.lastEntranceInEngineRoomDate);
+            
             Debug.Log("lastExitFromEngineRoom: " + item.lastExitFromEngineRoom);
         }
 
-        // pass it to the seperate Task...
+        // pass it to the seperate Task for storage and easier access.
         TaskToPassDataTO.employees = Data;
     }
 }

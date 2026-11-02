@@ -112,26 +112,25 @@ public class SortDataTask : Task
         {
             if (firstHalf[i].lastEntranceInEngineRoomDate <= secondHalf[j].lastEntranceInEngineRoomDate)
             {
-                sortedArray[k] = firstHalf[i];
+                sortedArray[k] = firstHalf[i]; // assign the element to the collection with smaller elements
                 i++;
             }
             else
             {
-                sortedArray[k] = secondHalf[j];
+                sortedArray[k] = secondHalf[j]; // assign the element to the collection with larger elements
                 j++;
             }
             // increase the itterator so we assign to the next spot in the return collection
             k++;
         }
 
-        // incase we finish comparring elements with out checking them all. Add them to the end of the return collection, (prioratising the fistHalf).
+        // incase we finish comparring elements with out checking them all. Add the remaining elements to the end of the collection we are returning, (prioratising the fistHalf).
         while (i < firstHalf.Length)
         {
             sortedArray[k] = firstHalf[i];
             i++;
             k++;
-        }
-
+        } 
         while (j < secondHalf.Length)
         {
             sortedArray[k] = secondHalf[j];
@@ -139,6 +138,7 @@ public class SortDataTask : Task
             k++;
         }
 
+        // Return the now sorted collection
         return sortedArray;
     }
     #endregion End of Merge Sort Code

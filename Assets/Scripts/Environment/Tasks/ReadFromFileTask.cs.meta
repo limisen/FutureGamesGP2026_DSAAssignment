@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 772572d8b9067ed499d7ce99257216c4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - FileToRead: {fileID: 4900000, guid: cce95edbce95ee74795e4fc5e4d5f207, type: 3}
+  - TaskToPassDataTO: {fileID: 11400000, guid: 190d0472f5bfe1a4daa5ba841d00f545, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

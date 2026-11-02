@@ -14,7 +14,7 @@ namespace Environment
 
         private void Awake()
         {
-            Debug.Log(queue.Count);
+            //Debug.Log(queue.Count);
             if (queue.Count != 0)
             {
                 currentTask = queue.Peek();
