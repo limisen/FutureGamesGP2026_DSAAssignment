@@ -120,7 +120,7 @@ public class SearchTask : Task
         // Calculate/find the median of the collection
         int median = DataToBeSearched.Length / 2;
 
-        // If this element (at the median index) is less than searchArgMin: create and take the collection that contains the half with larger elements
+        // If this element (at the median index) is less than searchArgMin: create a collection that contains the half with larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArgMin)
         {
             Employee[] partitionedCollection = new Employee[median];
@@ -136,7 +136,7 @@ public class SearchTask : Task
             return RangedBinarySearch(partitionedCollection, searchArgMin, searchArgMax);
         }
 
-        //  If this element (at the median index) is larger than searchArgMax: create and take the collection that contains the collection with smaller elements
+        //  If this element (at the median index) is larger than searchArgMax: create a collection that contains the collection with smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArgMax)
         {
             Employee[] partitionedCollection = new Employee[median];
