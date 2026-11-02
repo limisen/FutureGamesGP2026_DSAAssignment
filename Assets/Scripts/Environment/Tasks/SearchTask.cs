@@ -8,8 +8,8 @@ public class SearchTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSearched;
 
-    [SerializeField] DateTime SearchArgMin;
-    [SerializeField] DateTime SearchArgMax;
+    [SerializeField] String SearchArgMinString;
+    [SerializeField] String SearchArgMaxString;
 
     [SerializeField] List<Employee> foundElement;
 
@@ -19,9 +19,23 @@ public class SearchTask : Task
         //DateTime SingularSearchArg = DateTime.Parse("2021-08-22T06:55:12");
         //Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
 
+        DateTime SearchArgMin = DateTime.Parse(SearchArgMinString);
+        DateTime SearchArgMax = DateTime.Parse(SearchArgMaxString);
+
+        Debug.Log("starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
+
         List<Employee> killer = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
 
         foundElement = killer; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
+
+        if (foundElement != null)
+        {
+            Debug.Log("found " + foundElement.Count + " elements that match the search criteria.");
+        }
+        else
+        {
+            Debug.Log("found no elements that match the search criteria.");
+        }
 
         #endregion End of Binary Search code
     }
@@ -127,16 +141,34 @@ public class SearchTask : Task
 
             // check the elements before the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
             int i = median - 1;
-            while (i >= 0 && DataToBeSearched[i].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[i].lastEntranceInEngineRoomDate <= searchArgMax)
+            while (i >= 0)
             {
-                EmployeesMatchingSearchArg.Add(DataToBeSearched[i]);
+                if (DataToBeSearched[i].lastEntranceInEngineRoomDate >= searchArgMin
+                    && DataToBeSearched[i].lastEntranceInEngineRoomDate <= searchArgMax)
+                {
+                    EmployeesMatchingSearchArg.Add(DataToBeSearched[i]);
+                }
+                else
+                {
+                    break; // exit the loop if the element does not match the search criteria
+                }
+                // decrease the itterator so we check the previous element in the collection
                 i--;
             }
             // check the elements after the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
             int j = median + 1;
-            while (j < DataToBeSearched.Length && DataToBeSearched[j].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[j].lastEntranceInEngineRoomDate <= searchArgMax)
+            while (j < DataToBeSearched.Length - 1)
             {
-                EmployeesMatchingSearchArg.Add(DataToBeSearched[j]);
+                if (DataToBeSearched[j].lastEntranceInEngineRoomDate >= searchArgMin
+                    && DataToBeSearched[j].lastEntranceInEngineRoomDate <= searchArgMax)
+                {
+                    EmployeesMatchingSearchArg.Add(DataToBeSearched[j]);
+                }
+                else
+                {
+                    break; // exit the loop if the element does not match the search criteria
+                }
+                // increase the itterator so we check the next element in the collection
                 j++;
             }
 

@@ -15,7 +15,7 @@ public class ReadFromFile : Task
         if (FileToRead == null) return;
 
         // "Read" the file
-        Debug.Log($"Path: {FileToRead}");
+        //Debug.Log($"Path: {FileToRead}");
 
         Employee[] Data = JsonUtility.FromJson<EmployeeArray>(FileToRead.text)?.employees;
         // Parse the data from the file
@@ -23,16 +23,16 @@ public class ReadFromFile : Task
         // Display ($"Data: {Data}")
         foreach (var item in Data)
         {
-            Debug.Log("EmployeeName: " + item.name);
-            Debug.Log("EmployeeId: " + item.employeeId);
-            Debug.Log("hasEngineRoomClearance: " + item.hasEngineRoomClearance);
-            Debug.Log("lastEntranceInEngineRoom: " + item.lastEntranceInEngineRoom);
+            //Debug.Log("EmployeeName: " + item.name);
+            //Debug.Log("EmployeeId: " + item.employeeId);
+            //Debug.Log("hasEngineRoomClearance: " + item.hasEngineRoomClearance);
+            //Debug.Log("lastEntranceInEngineRoom: " + item.lastEntranceInEngineRoom);
 
             // Convert the string to a DateTime object
             item.lastEntranceInEngineRoomDate = DateTime.Parse(item.lastEntranceInEngineRoom);
-            Debug.Log("lastEntranceInEngineRoomDate: " + item.lastEntranceInEngineRoomDate);
+            //Debug.Log("lastEntranceInEngineRoomDate: " + item.lastEntranceInEngineRoomDate);
             
-            Debug.Log("lastExitFromEngineRoom: " + item.lastExitFromEngineRoom);
+            //Debug.Log("lastExitFromEngineRoom: " + item.lastExitFromEngineRoom);
         }
 
         // pass it to the seperate Task for storage and easier access.

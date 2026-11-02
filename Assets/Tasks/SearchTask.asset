@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: SearchTask
   m_EditorClassIdentifier: Assembly-CSharp::SearchTask
   DataToBeSearched: {fileID: 11400000, guid: 190d0472f5bfe1a4daa5ba841d00f545, type: 2}
-  foundElement:
-    name: 
-    employeeId: 0
-    hasEngineRoomClearance: 0
-    lastEntranceInEngineRoom: 
-    lastExitFromEngineRoom: 
+  SearchArgMinString: 2234-08-05T00:00:00
+  SearchArgMaxString: 2234-10-01T00:00:00
+  foundElement: []
