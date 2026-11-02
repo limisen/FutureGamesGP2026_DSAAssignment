@@ -8,6 +8,9 @@ public class SearchTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSearched;
 
+    [SerializeField] DateTime SearchArgMin;
+    [SerializeField] DateTime SearchArgMax;
+
     [SerializeField] List<Employee> foundElement;
 
     public override void Execute()
@@ -15,9 +18,6 @@ public class SearchTask : Task
         #region Binary Search
         //DateTime SingularSearchArg = DateTime.Parse("2021-08-22T06:55:12");
         //Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
-
-        DateTime SearchArgMin = DateTime.Parse("2021-08-22T06:55:12");
-        DateTime SearchArgMax = DateTime.Parse("2021-08-22T06:55:12");
 
         List<Employee> killer = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
 
