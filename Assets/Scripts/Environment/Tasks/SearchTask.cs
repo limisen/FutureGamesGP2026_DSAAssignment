@@ -22,13 +22,15 @@ public class SearchTask : Task
         DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
 
         Debug.Log($"Starting search for a element with specified date: {SingularSearchArg}");
-        float singularSearchStartTime = Time.realtimeSinceStartup;
+        System.Diagnostics.Stopwatch SingularSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
 
         Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
 
-        float singularSearchEndTime = Time.realtimeSinceStartup;
+        SingularSearchStopwatch.Stop();
 
-        Debug.Log($"Singular Search took: {singularSearchEndTime - singularSearchStartTime} seconds to complete.");
+        long SingularSearchTimeDifference = SingularSearchStopwatch.ElapsedTicks;
+
+        Debug.Log($"Singular Search took: {SingularSearchTimeDifference} ticks to complete.");
 
         if (foundElement != null)
         {
@@ -55,13 +57,15 @@ public class SearchTask : Task
 
         Debug.Log("Starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
 
-        float rangedSearchStartTime = Time.realtimeSinceStartup;
+        System.Diagnostics.Stopwatch RangedSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
 
         List<Employee> killers = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
 
-        float rangedSearchEndTime = Time.realtimeSinceStartup;
+        RangedSearchStopwatch.Stop();
 
-        Debug.Log($"Ranged Search took: {rangedSearchEndTime - rangedSearchStartTime} seconds to complete.");
+        long RangedSearchTimeDifference = RangedSearchStopwatch.ElapsedTicks;
+
+        Debug.Log($"Ranged Search took: {RangedSearchTimeDifference} ticks to complete.");
 
         foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
@@ -76,7 +80,7 @@ public class SearchTask : Task
 
         #endregion End of Ranged Binary Search code
 
-        Debug.Log($"Time difference between the two searches: {Math.Abs((singularSearchEndTime - singularSearchStartTime) - (rangedSearchEndTime - rangedSearchStartTime))} seconds.");
+        Debug.Log($"Time difference between the two searches: {(RangedSearchTimeDifference - SingularSearchTimeDifference)} ticks.");
     }
 
     #region Singular Binary Search
