@@ -8,36 +8,61 @@ public class SearchTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSearched;
 
-    [SerializeField] String SearchArgMinString;
-    [SerializeField] String SearchArgMaxString;
+    [SerializeField] string SearchArgMinString;
+    [SerializeField] string SearchArgMaxString;
+
+    [SerializeField] string SingularSearchArgString;
 
     [SerializeField] List<Employee> foundElement;
 
     public override void Execute()
     {
-        #region Binary Search
-        //DateTime SingularSearchArg = DateTime.Parse("2021-08-22T06:55:12");
-        //Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
+        #region Singular Binary Search
+        DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
 
-        DateTime SearchArgMin = DateTime.Parse(SearchArgMinString);
-        DateTime SearchArgMax = DateTime.Parse(SearchArgMaxString);
+        Debug.Log($"Starting search for a element with specified date: {SingularSearchArg}");
 
-        Debug.Log("starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
-
-        List<Employee> killer = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
-
-        foundElement = killer; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
+        Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
 
         if (foundElement != null)
         {
-            Debug.Log("found " + foundElement.Count + " elements that match the search criteria.");
+            Debug.Log($"Found a element that matches the search criteria: {foundElement}");
         }
         else
         {
-            Debug.Log("found no elements that match the search criteria.");
+            Debug.Log("Found no element that matches the search criteria.");
+        }
+        #endregion Singular Binary Search
+
+        #region Ranged Binary Search
+        DateTime SearchArgMin = DateTime.Parse(SearchArgMinString);
+        DateTime SearchArgMax = DateTime.Parse(SearchArgMaxString);
+
+        // Just incase the user putes the range the wrong way around
+        if (SearchArgMin > SearchArgMax)
+        {
+            DateTime temp = SearchArgMax;
+
+            SearchArgMax = SearchArgMin;
+            SearchArgMin = temp;
         }
 
-        #endregion End of Binary Search code
+        Debug.Log("Starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
+
+        List<Employee> killers = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
+
+        foundElement = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
+
+        if (foundElement != null)
+        {
+            Debug.Log("Found " + foundElement.Count + " elements that match the search criteria.");
+        }
+        else
+        {
+            Debug.Log("Found no elements that match the search criteria.");
+        }
+
+        #endregion End of Ranged Binary Search code
     }
 
     #region Singular Binary Search
