@@ -13,7 +13,8 @@ public class SearchTask : Task
 
     [SerializeField] string SingularSearchArgString;
 
-    [SerializeField] List<Employee> foundElement;
+    [SerializeField] Employee foundElement;
+    [SerializeField] List<Employee> foundElements;
 
     public override void Execute()
     {
@@ -51,11 +52,11 @@ public class SearchTask : Task
 
         List<Employee> killers = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
 
-        foundElement = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
+        foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
         if (foundElement != null)
         {
-            Debug.Log("Found " + foundElement.Count + " elements that match the search criteria.");
+            Debug.Log("Found " + foundElements.Count + " elements that match the search criteria.");
         }
         else
         {
