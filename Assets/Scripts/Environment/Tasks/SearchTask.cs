@@ -11,35 +11,35 @@ public class SearchTask : Task
     [SerializeField] string SearchArgMinString;
     [SerializeField] string SearchArgMaxString;
 
-    [SerializeField] string SingularSearchArgString;
+    //[SerializeField] string SingularSearchArgString;
 
-    [SerializeField] Employee foundElement;
+    //[SerializeField] Employee foundElement;
     [SerializeField] List<Employee> foundElements;
 
     public override void Execute()
     {
         #region Singular Binary Search
-        DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
+        //DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
 
-        Debug.Log($"Starting search for a element with specified date: {SingularSearchArg}");
-        System.Diagnostics.Stopwatch SingularSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
+        //Debug.Log($"Starting search for a element with specified date: {SingularSearchArg}");
+        //System.Diagnostics.Stopwatch SingularSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-        Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
+        //Employee killer = SingularBinarySearch(DataToBeSearched.employees, SingularSearchArg);
 
-        SingularSearchStopwatch.Stop();
+        //SingularSearchStopwatch.Stop();
 
-        long SingularSearchTimeDifference = SingularSearchStopwatch.ElapsedTicks;
+        //long SingularSearchTimeDifference = SingularSearchStopwatch.ElapsedTicks;
 
-        Debug.Log($"Singular Search took: {SingularSearchTimeDifference} ticks to complete.");
+        //Debug.Log($"Singular Search took: {SingularSearchTimeDifference} ticks to complete.");
 
-        if (foundElement != null)
-        {
-            Debug.Log($"Found a element that matches the search criteria: {foundElement}");
-        }
-        else
-        {
-            Debug.Log("Found no element that matches the search criteria.");
-        }
+        //if (foundElement != null)
+        //{
+        //    Debug.Log($"Found a element that matches the search criteria: {foundElement}");
+        //}
+        //else
+        //{
+        //    Debug.Log("Found no element that matches the search criteria.");
+        //}
         #endregion End of Singular Binary Search code
 
         #region Ranged Binary Search
@@ -69,7 +69,7 @@ public class SearchTask : Task
 
         foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
-        if (foundElement != null)
+        if (foundElements != null)
         {
             Debug.Log("Found " + foundElements.Count + " elements that match the search criteria.");
         }
@@ -80,7 +80,7 @@ public class SearchTask : Task
 
         #endregion End of Ranged Binary Search code
 
-        Debug.Log($"Time difference between the two searches: {(RangedSearchTimeDifference - SingularSearchTimeDifference)} ticks.");
+        //Debug.Log($"Time difference between the two searches: {(RangedSearchTimeDifference - SingularSearchTimeDifference)} ticks.");
     }
 
     #region Singular Binary Search
@@ -132,10 +132,22 @@ public class SearchTask : Task
     private List<Employee> RangedBinarySearch(Employee[] DataToBeSearched, DateTime searchArgMin, DateTime searchArgMax)
     {
         // Early Exit condition so we dont recurse infinitely
-        if (DataToBeSearched.Length < 1) { return null; }
+        if (DataToBeSearched.Length <= 1) 
+        {
+            // If the only element in the collection is within the range, return a collection with that element in it.
+            if (DataToBeSearched[0].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[0].lastEntranceInEngineRoomDate <= searchArgMax)
+            {
+                List<Employee> singleElementList = new List<Employee>();
+                singleElementList.Add(DataToBeSearched[0]);
+                return singleElementList;
+            }
+            // Otherwise return null, indicating that there are no elements in the specified range.
+            return null; 
+        }
 
         // Calculate/find the median of the collection
         int median = DataToBeSearched.Length / 2;
+        if (median % 2 > 0 && median + 1 < DataToBeSearched.Length) { median++; } // if the median is odd and increasing it is within bounds, increase it so we can split the collection in halves evenly
 
         // If this element (at the median index) is less than searchArgMin: create a collection that contains the half with larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArgMin)
@@ -143,8 +155,21 @@ public class SearchTask : Task
             Employee[] partitionedCollection = new Employee[median];
 
             int j = 0;
-            for (int i = median; i < DataToBeSearched.Length - 1; i++)
+            for (int i = median; i < DataToBeSearched.Length; i++)
             {
+                // if the element is null that indicates that we have reached the end of the collection
+                if (DataToBeSearched[i] == null) 
+                {
+                    // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
+                    // Copy these elements from the partitionedCollection into this new collection.
+                    // Then return this new collection
+                    Employee[] newPartitionedCollection = new Employee[j];
+                    for (int k = 0; k < j; k++)
+                    {
+                        newPartitionedCollection[k] = partitionedCollection[k];
+                    }
+                    return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
+                }
                 partitionedCollection[j] = DataToBeSearched[i];
                 j++;
             }
@@ -157,8 +182,23 @@ public class SearchTask : Task
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArgMax)
         {
             Employee[] partitionedCollection = new Employee[median];
+            
             for (int i = 0; i < median; i++)
             {
+                // if the element is null that indicates that we have reached the end of the collection
+                if (DataToBeSearched[i] == null)
+                {
+                    // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
+                    // Copy these elements from the partitionedCollection into this new collection.
+                    // Then return this new collection
+                    Employee[] newPartitionedCollection = new Employee[i];
+                    for (int k = 0; k < i; k++)
+                    {
+                        newPartitionedCollection[k] = partitionedCollection[k];
+                    }
+                    return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
+                }
+
                 partitionedCollection[i] = DataToBeSearched[i];
             }
 
@@ -200,7 +240,7 @@ public class SearchTask : Task
             }
             // check the elements after the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
             int j = median + 1;
-            while (j < DataToBeSearched.Length - 1)
+            while (j < DataToBeSearched.Length)
             {
                 if (DataToBeSearched[j].lastEntranceInEngineRoomDate >= searchArgMin
                     && DataToBeSearched[j].lastEntranceInEngineRoomDate <= searchArgMax)
