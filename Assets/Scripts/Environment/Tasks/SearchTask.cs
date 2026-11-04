@@ -219,9 +219,6 @@ public class SearchTask : Task
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate >= searchArgMin
             && DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
         {
-            // Add the median element to the collection of elements since it matches the search criteria.
-            EmployeesMatchingSearchArg.Add(DataToBeSearched[median]);
-
             // check the elements before the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
             int i = median - 1;
             while (i >= 0)
@@ -238,6 +235,9 @@ public class SearchTask : Task
                 // decrease the itterator so we check the previous element in the collection
                 i--;
             }
+            // Add the median element to the collection of elements since it also matches the search criteria.
+            EmployeesMatchingSearchArg.Add(DataToBeSearched[median]);
+
             // check the elements after the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
             int j = median + 1;
             while (j < DataToBeSearched.Length)
