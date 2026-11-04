@@ -161,13 +161,13 @@ public class SearchTask : Task
                 if (DataToBeSearched[i] == null) 
                 {
                     // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
-                    // Copy these elements from the partitionedCollection into this new collection.
-                    // Then return this new collection
                     Employee[] newPartitionedCollection = new Employee[j];
                     for (int k = 0; k < j; k++)
                     {
+                        // Copy these elements from the partitionedCollection into this new collection.
                         newPartitionedCollection[k] = partitionedCollection[k];
                     }
+                    // Then return this new collection
                     return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
                 }
                 partitionedCollection[j] = DataToBeSearched[i];
@@ -189,20 +189,20 @@ public class SearchTask : Task
                 if (DataToBeSearched[i] == null)
                 {
                     // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
-                    // Copy these elements from the partitionedCollection into this new collection.
-                    // Then return this new collection
                     Employee[] newPartitionedCollection = new Employee[i];
                     for (int k = 0; k < i; k++)
                     {
+                        // Copy these elements from the partitionedCollection into this new collection.
                         newPartitionedCollection[k] = partitionedCollection[k];
                     }
+                    // Then return this new collection
                     return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
                 }
 
                 partitionedCollection[i] = DataToBeSearched[i];
             }
 
-            // Return the element if found
+            // Otherwise return the partitioned collection, meaning no elements are null.
             return RangedBinarySearch(partitionedCollection, searchArgMin, searchArgMax);
         }
 
