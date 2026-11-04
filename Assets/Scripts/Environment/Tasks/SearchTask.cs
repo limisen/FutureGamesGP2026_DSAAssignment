@@ -58,14 +58,17 @@ public class SearchTask : Task
         Debug.Log("Starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
 
         System.Diagnostics.Stopwatch RangedSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
+        Benchmark.StartBenchmark();
 
         List<Employee> killers = RangedBinarySearch(DataToBeSearched.employees, SearchArgMin, SearchArgMax);
 
+        Benchmark.EndBenchmark();
         RangedSearchStopwatch.Stop();
 
         long RangedSearchTimeDifference = RangedSearchStopwatch.ElapsedTicks;
 
         Debug.Log($"Ranged Search took: {RangedSearchTimeDifference} ticks to complete.");
+        Debug.Log($"Ranged Search took: {Benchmark.timeTaken} seconds to complete.");
 
         foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
