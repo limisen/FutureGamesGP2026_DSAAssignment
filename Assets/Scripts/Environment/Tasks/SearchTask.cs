@@ -84,7 +84,7 @@ public class SearchTask : Task
     }
 
     #region Singular Binary Search
-    // assuming the collection is sorted search it for an element that matches the specified searchArg
+    // assuming the collection is sorted (in ascending order), search it for an element that matches the specified searchArg, return the element if found, otherwise return null.
     private Employee SingularBinarySearch(Employee[] DataToBeSearched, DateTime searchArg)
     {
         // Early Exit condition so we dont recurse infinitely
@@ -128,7 +128,7 @@ public class SearchTask : Task
     #endregion End of code for Singular Binary Search
 
     #region Ranged Binary Search
-    // assuming the collection is sorted search it for elements within the specified range [searchArgMin, searchArgMax]
+    // assuming the collection is sorted (in ascending order), search it for elements within the specified range [searchArgMin, searchArgMax]
     private List<Employee> RangedBinarySearch(Employee[] DataToBeSearched, DateTime searchArgMin, DateTime searchArgMax)
     {
         // Early Exit condition so we dont recurse infinitely
