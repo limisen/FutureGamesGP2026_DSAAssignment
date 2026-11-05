@@ -36,6 +36,6 @@ public class ReadFromFile : Task
         }
 
         // pass it to the seperate Task for storage and easier access.
-        TaskToPassDataTO.employees = Data;
+        TaskToPassDataTO.employeeArray = Data;
     }
 }

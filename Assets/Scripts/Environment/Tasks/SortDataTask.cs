@@ -12,7 +12,19 @@ public class SortDataTask : Task
     public override void Execute()
     {
         //int[] arrayToSort = { 8, 2, 7, 3, 4, -2, -1 };
-        Employee[] arrayToSort = DataToBeSorted.employees;
+        Employee[] arrayToSort = DataToBeSorted.employeeArray;
+
+        #region Binary Search Tree
+        BinarySearchTree BST_Employees = new BinarySearchTree();
+        foreach (Employee employee in DataToBeSorted.employeeArray)
+        {
+            BST_Employees.Insert(employee);
+        }
+
+        DataToBeSorted.BST_Employees = BST_Employees;
+
+        #endregion End of Binary Search Tree Code
+
         #region Selection Sort
         //int lastCheckedElement = 1;
         //int i = lastCheckedElement;
@@ -77,7 +89,7 @@ public class SortDataTask : Task
         //arrayToSort = QuickSort(arrayToSort);
         #endregion End of Quick Sort Code
 
-        DataToBeSorted.employees = arrayToSort;
+        DataToBeSorted.employeeArray = arrayToSort;
     }
 
     #region Merge Sort
