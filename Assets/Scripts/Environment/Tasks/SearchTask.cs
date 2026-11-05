@@ -24,13 +24,13 @@ public class SearchTask : Task
         DateTime SingularSearchArg = DateTime.Parse(SingularSearchArgString);
 
         Debug.Log($"Starting search for a element with the specified date: {SingularSearchArg}");
-        System.Diagnostics.Stopwatch SingularSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
+        Benchmark.StartBenchmark();
 
         Employee killer = SingularBinarySearch(DataToBeSearched.employeeArray, SingularSearchArg);
 
-        SingularSearchStopwatch.Stop();
+        Benchmark.EndBenchmark();
 
-        long SingularSearchTimeToExecute = SingularSearchStopwatch.ElapsedTicks;
+        float SingularSearchTimeToExecute = Benchmark.timeTakenTicks;
 
         //Debug.Log($"Singular Search took: {SingularSearchTimeToExecute} ticks to complete.");
 
@@ -59,15 +59,13 @@ public class SearchTask : Task
 
         Debug.Log("Starting search for elements between: " + SearchArgMin + " and " + SearchArgMax);
 
-        System.Diagnostics.Stopwatch RangedSearchStopwatch = System.Diagnostics.Stopwatch.StartNew();
-        //Benchmark.StartBenchmark();
+        Benchmark.StartBenchmark();
 
         List<Employee> killers = RangedBinarySearch(DataToBeSearched.employeeArray, SearchArgMin, SearchArgMax);
 
-        //Benchmark.EndBenchmark();
-        RangedSearchStopwatch.Stop();
+        Benchmark.EndBenchmark();
 
-        long RangedSearchTimeToExecute = RangedSearchStopwatch.ElapsedTicks;
+        float RangedSearchTimeToExecute = Benchmark.timeTakenTicks;
 
         //Debug.Log($"Ranged Search took: {RangedSearchTimeToExecute} ticks to complete.");
         //Debug.Log($"Ranged Search took: {Benchmark.timeTaken} seconds to complete.");
@@ -99,14 +97,15 @@ public class SearchTask : Task
         }
 
         Debug.Log("Starting search for elements between: " + BSTSearchArgMin + " and " + BSTSearchArgMax);
-        System.Diagnostics.Stopwatch BSTSearchStopwatch = System.Diagnostics.Stopwatch.StartNew(); // Start the stopwatch to measure the time taken for the search operation
+        
+        Benchmark.StartBenchmark();
 
         // Start the search for elements within the specified range in the Binary Search Tree
         BSTfoundElements = BST_Employees.RangeSearchBST(BSTSearchArgMin, BSTSearchArgMax);
 
-        BSTSearchStopwatch.Stop(); // Stop the stopwatch after the search operation is complete
+        Benchmark.EndBenchmark();
 
-        long BSTSearchTimeToExecute = BSTSearchStopwatch.ElapsedTicks;
+        float BSTSearchTimeToExecute = Benchmark.timeTakenTicks;
 
         //Debug.Log($"Binary Search Tree Search took: {BSTSearchTimeToExecute} ticks to complete.");
 
