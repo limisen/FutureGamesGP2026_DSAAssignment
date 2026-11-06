@@ -30,7 +30,8 @@ public class SearchTask : Task
 
         Benchmark.EndBenchmark();
 
-        float SingularSearchTimeToExecute = Benchmark.timeTakenTicks;
+        float SingularSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
+        float SingularSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
 
         //Debug.Log($"Singular Search took: {SingularSearchTimeToExecute} ticks to complete.");
 
@@ -65,7 +66,8 @@ public class SearchTask : Task
 
         Benchmark.EndBenchmark();
 
-        float RangedSearchTimeToExecute = Benchmark.timeTakenTicks;
+        float RangedSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
+        float RangedSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
 
         //Debug.Log($"Ranged Search took: {RangedSearchTimeToExecute} ticks to complete.");
         //Debug.Log($"Ranged Search took: {Benchmark.timeTaken} seconds to complete.");
@@ -105,7 +107,8 @@ public class SearchTask : Task
 
         Benchmark.EndBenchmark();
 
-        float BSTSearchTimeToExecute = Benchmark.timeTakenTicks;
+        float BSTSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
+        float BSTSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
 
         //Debug.Log($"Binary Search Tree Search took: {BSTSearchTimeToExecute} ticks to complete.");
 
@@ -120,9 +123,13 @@ public class SearchTask : Task
         #endregion End of Binary (Range) Search Tree Search code
 
         Debug.Log($"Each search function took the following time to complete:");
-        Debug.Log($"Singular Binary Search: {SingularSearchTimeToExecute} ticks");
-        Debug.Log($"Ranged Binary Search: {RangedSearchTimeToExecute} ticks");
-        Debug.Log($"Binary Search Tree Search: {BSTSearchTimeToExecute} ticks");
+        Debug.Log($"Singular Binary Search: {SingularSearchTimeToExecuteTicks} ticks");
+        Debug.Log($"Ranged Binary Search: {RangedSearchTimeToExecuteTicks} ticks");
+        Debug.Log($"Binary Search Tree Search: {BSTSearchTimeToExecuteTicks} ticks");
+
+        Debug.Log($"Singular Binary Search: {SingularSearchTimeToExecuteMilliseconds} ms");
+        Debug.Log($"Ranged Binary Search: {RangedSearchTimeToExecuteMilliseconds} ms");
+        Debug.Log($"Binary Search Tree Search: {BSTSearchTimeToExecuteMilliseconds} ms");
     }
 
     #region Singular Binary Search
