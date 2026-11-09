@@ -26,14 +26,12 @@ public class SearchTask : Task
         Debug.Log($"Starting search for a element with the specified date: {SingularSearchArg}");
         Benchmark.StartBenchmark();
 
-        Employee killer = SingularBinarySearch(DataToBeSearched.employeeArray, SingularSearchArg);
+        foundElement = SingularBinarySearch(DataToBeSearched.employeeArray, 0, DataToBeSearched.employeeArray.Length - 1, SingularSearchArg);
 
         Benchmark.EndBenchmark();
 
         float SingularSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
         float SingularSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
-
-        //Debug.Log($"Singular Search took: {SingularSearchTimeToExecute} ticks to complete.");
 
         if (foundElement != null)
         {
@@ -62,17 +60,12 @@ public class SearchTask : Task
 
         Benchmark.StartBenchmark();
 
-        List<Employee> killers = RangedBinarySearch(DataToBeSearched.employeeArray, SearchArgMin, SearchArgMax);
+        foundElements = RangedBinarySearch(DataToBeSearched.employeeArray, 0, DataToBeSearched.employeeArray.Length - 1, SearchArgMin, SearchArgMax);
 
         Benchmark.EndBenchmark();
 
         float RangedSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
         float RangedSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
-
-        //Debug.Log($"Ranged Search took: {RangedSearchTimeToExecute} ticks to complete.");
-        //Debug.Log($"Ranged Search took: {Benchmark.timeTaken} seconds to complete.");
-
-        foundElements = killers; // Assign the entire list to foundElement since RangedBinarySearch returns a list of elements that match the search criteria.
 
         if (foundElements != null)
         {
@@ -110,8 +103,6 @@ public class SearchTask : Task
         float BSTSearchTimeToExecuteTicks = Benchmark.timeTakenTicks;
         float BSTSearchTimeToExecuteMilliseconds = Benchmark.timeTaken;
 
-        //Debug.Log($"Binary Search Tree Search took: {BSTSearchTimeToExecute} ticks to complete.");
-
         if (BSTfoundElements != null && BSTfoundElements.Count > 0)
         {
             Debug.Log("BST Found " + BSTfoundElements.Count + " elements that match the search criteria.");
@@ -134,180 +125,93 @@ public class SearchTask : Task
 
     #region Singular Binary Search
     // assuming the collection is sorted(in ascending order), search it for an element that matches the specified searchArg, return the element if found, otherwise return null.
-    private Employee SingularBinarySearch(Employee[] DataToBeSearched, DateTime searchArg)
+    private Employee SingularBinarySearch(Employee[] DataToBeSearched, int minimumIndex, int maximumIndex, DateTime searchArg)
     {
         // Early Exit condition so we dont recurse infinitely
-        if (DataToBeSearched.Length < 1) { return null; }
+        if (maximumIndex - minimumIndex <= 1) { return null; }
 
         // Calculate/find the median of the collection
-        int median = DataToBeSearched.Length / 2;
+        int median = (maximumIndex + minimumIndex) / 2;
 
         // If the element at the median index is equal to the searchArg, return that element
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate == searchArg) { return DataToBeSearched[median]; }
 
-        // If this element is less than the median: create and take the collection that contains the half with larger elements
+        // If this element (at the median index) is less than searchArg: move/overwrite the mimimumIndex to be equal to median.
+        // Effectivly creating a collection containing only larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArg)
         {
-            Employee[] partitionedCollection = new Employee[median];
-            int j = 0;
-            for (int i = median; i < DataToBeSearched.Length - 1; i++)
-            {
-                partitionedCollection[j] = DataToBeSearched[i];
-                j++;
-            }
-            // Return the element if found
-            return SingularBinarySearch(partitionedCollection, searchArg);
+            minimumIndex = median;
+
+            return SingularBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArg);
         }
 
-        //  If this element is larger than the median: create and take the collection that contains the collection with smaller elements
+        // If this element (at the median index) is greater than searchArg: move/overwrite the maximumIndex to be equal to median.
+        // Effectivly creating a collection containing only smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArg)
         {
-            Employee[] partitionedCollection = new Employee[median];
-            for (int i = 0; i < median; i++)
-            {
-                partitionedCollection[i] = DataToBeSearched[i];
-            }
-            // Return the element if found
-            return SingularBinarySearch(partitionedCollection, searchArg);
+            maximumIndex = median;
+
+            return SingularBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArg);
         }
 
-        // otherwise return null, indicating that there are no elements in the specified range.
+        // otherwise return null, indicating that there are no elements in the specified (index) range.
         return null;
     }
     #endregion End of code for Singular Binary Search
 
     #region Ranged Binary Search
-    //assuming the collection is sorted(in ascending order), search it for elements within the specified range[searchArgMin, searchArgMax]
-    private List<Employee> RangedBinarySearch(Employee[] DataToBeSearched, DateTime searchArgMin, DateTime searchArgMax)
+    //assuming the collection is sorted(in ascending order), search it for elements within the specified indexes (minimumIndex, maximumIndex) and date range[searchArgMin, searchArgMax]
+    private List<Employee> RangedBinarySearch(Employee[] DataToBeSearched, int minimumIndex, int maximumIndex, DateTime searchArgMin, DateTime searchArgMax)
     {
         // Early Exit condition so we dont recurse infinitely
-        if (DataToBeSearched.Length <= 1)
+        if (maximumIndex - minimumIndex <= 1)
         {
-            // If the only element in the collection is within the range, return a collection with that element in it.
-            if (DataToBeSearched[0].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[0].lastEntranceInEngineRoomDate <= searchArgMax)
+            // If the only element in the collection is within the date range, return (a collection with) that element.
+            if (DataToBeSearched[minimumIndex].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[maximumIndex].lastEntranceInEngineRoomDate <= searchArgMax)
             {
                 List<Employee> singleElementList = new List<Employee>();
                 singleElementList.Add(DataToBeSearched[0]);
                 return singleElementList;
             }
-            // Otherwise return null, indicating that there are no elements in the specified range.
+            // Otherwise return null, indicating that there are no elements in the specified ranges.
             return null;
         }
 
         // Calculate/find the median of the collection
-        int median = DataToBeSearched.Length / 2;
-        if (median % 2 > 0 && median + 1 < DataToBeSearched.Length) { median++; } // if the median is odd and increasing it is within bounds, increase it so we can split the collection in halves evenly
+        int median = (maximumIndex - minimumIndex) / 2;
 
-        // If this element (at the median index) is less than searchArgMin: create a collection that contains the half with larger elements and then recurse on that collection
+        // If this element (at the median index) is less than searchArgMin: move/overwrite the mimimumIndex to be equal to median.
+        // Effectivly creating a collection containing only larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArgMin)
         {
-            Employee[] partitionedCollection = new Employee[median];
-
-            int j = 0;
-            for (int i = median; i < DataToBeSearched.Length; i++)
-            {
-                // if the element is null that indicates that we have reached the end of the collection
-                if (DataToBeSearched[i] == null)
-                {
-                    // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
-                    Employee[] newPartitionedCollection = new Employee[j];
-                    for (int k = 0; k < j; k++)
-                    {
-                        // Copy these elements from the partitionedCollection into this new collection.
-                        newPartitionedCollection[k] = partitionedCollection[k];
-                    }
-                    // Then return this new collection
-                    return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
-                }
-                partitionedCollection[j] = DataToBeSearched[i];
-                j++;
-            }
+            minimumIndex = median;
 
             // Return the element if found
-            return RangedBinarySearch(partitionedCollection, searchArgMin, searchArgMax);
+            return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
         }
 
-        //  If this element (at the median index) is larger than searchArgMax: create a collection that contains the collection with smaller elements and then recurse on that collection
+        // If this element (at the median index) is greater than searchArgMax: move/overwrite the maximumIndex to be equal to median.
+        // Effectivly creating a collection containing only smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArgMax)
         {
-            Employee[] partitionedCollection = new Employee[median];
+            maximumIndex = median;
 
-            for (int i = 0; i < median; i++)
-            {
-                // if the element is null that indicates that we have reached the end of the collection
-                if (DataToBeSearched[i] == null)
-                {
-                    // Create a new collection that is the size of the number of elements we have added to the partitionedCollection so far.
-                    Employee[] newPartitionedCollection = new Employee[i];
-                    for (int k = 0; k < i; k++)
-                    {
-                        // Copy these elements from the partitionedCollection into this new collection.
-                        newPartitionedCollection[k] = partitionedCollection[k];
-                    }
-                    // Then return this new collection
-                    return RangedBinarySearch(newPartitionedCollection, searchArgMin, searchArgMax);
-                }
-
-                partitionedCollection[i] = DataToBeSearched[i];
-            }
-
-            // Otherwise return the partitioned collection, meaning no elements are null.
-            return RangedBinarySearch(partitionedCollection, searchArgMin, searchArgMax);
+            // Return the element if found
+            return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
         }
 
-        // If the element at the median index is within the range [searchArgMin, searchArgMax], we need to find all elements in this range:
-
-        //Employee[] EmployeesMatchingSearchArg = DataToBeSearched.Where(employee => employee.lastEntranceInEngineRoomDate >= searchArgMin && employee.lastEntranceInEngineRoomDate <= searchArgMax).ToArray();
-        List<Employee> EmployeesMatchingSearchArg = new List<Employee>();
-
-        // If the element at the median index is within the range searchArgMin to searchArgMax,
-        // add that element to the collection of elements we are returning.
-        // Then check the elements before the median to see if they also match the search criteria. IF so add them to the return collection as well.
-        // Then check the elements after the median to see if they also match the search criteria. IF so add them to the return collection as well.
-        // IF the element before or after the median do not match the search criteria, return the collection of elements that match the search criteria.
-        if (DataToBeSearched[median].lastEntranceInEngineRoomDate >= searchArgMin
-            && DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
+        // If the element at the median index is within the range [searchArgMin, searchArgMax], create and fill the return collection
+        if (DataToBeSearched[median].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
         {
-            // check the elements before the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
-            int i = median - 1;
-            while (i >= 0)
-            {
-                if (DataToBeSearched[i].lastEntranceInEngineRoomDate >= searchArgMin
-                    && DataToBeSearched[i].lastEntranceInEngineRoomDate <= searchArgMax)
-                {
-                    EmployeesMatchingSearchArg.Add(DataToBeSearched[i]);
-                }
-                else
-                {
-                    break; // exit the loop if the element does not match the search criteria
-                }
-                // decrease the itterator so we check the previous element in the collection
-                i--;
-            }
-            // Add the median element to the collection of elements since it also matches the search criteria.
-            EmployeesMatchingSearchArg.Add(DataToBeSearched[median]);
+            List<Employee> EmployeesMatchingSearchArg = new List<Employee>();
 
-            // check the elements after the median to see if these elements also match the search criteria. IF so add them to the return collection as well.
-            int j = median + 1;
-            while (j < DataToBeSearched.Length)
+            for (int i = minimumIndex; i < maximumIndex; i++)
             {
-                if (DataToBeSearched[j].lastEntranceInEngineRoomDate >= searchArgMin
-                    && DataToBeSearched[j].lastEntranceInEngineRoomDate <= searchArgMax)
-                {
-                    EmployeesMatchingSearchArg.Add(DataToBeSearched[j]);
-                }
-                else
-                {
-                    break; // exit the loop if the element does not match the search criteria
-                }
-                // increase the itterator so we check the next element in the collection
-                j++;
+                EmployeesMatchingSearchArg.Add(DataToBeSearched[i]);
             }
 
-            // Return the collection of elements that match the search criteria.
             return EmployeesMatchingSearchArg;
         }
-
         // otherwise return null, indicating that there are no elements in the specified range.
         return null;
     }
