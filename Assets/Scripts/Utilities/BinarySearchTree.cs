@@ -64,7 +64,7 @@ public class BinarySearchTree
     #region Singular Search Code
     public Node SingularSearchBST(DateTime value)
     {
-        // Start the recursive search process from the root node.
+        // Start the recursive search process from the root node. (Which uses the Depth-First Search (DFS) algorithm to traverse the tree.)
         // A user can call this method to search for a value in the BST,
         // and it will handle the logic of traversing the tree to find the value.
         return SingularSearchBSTRec(root, value);
@@ -99,7 +99,7 @@ public class BinarySearchTree
     #region Range Search Code
     public List<Employee> RangeSearchBST(DateTime minValue, DateTime maxValue)
     {
-        // Start the recursive range search process from the root node.
+        // Start the recursive range search process from the root node. (Which uses the Depth-First Search (DFS) algorithm to traverse the tree.)
         // A user can call this method to search for values within a specified range in the BST,
         // and it will handle the logic of traversing the tree to find all values within that range.
         List<Employee> foundEmployees = RangeSearchBSTRec(root, minValue, maxValue, new List<Employee>());
