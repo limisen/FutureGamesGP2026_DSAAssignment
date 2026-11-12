@@ -8,22 +8,12 @@ public class SortDataTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSorted;
 
+    private BinarySearchTree BST_Employees;
 
     public override void Execute()
     {
         //int[] arrayToSort = { 8, 2, 7, 3, 4, -2, -1 };
         Employee[] arrayToSort = DataToBeSorted.employeeArray;
-
-        #region Binary Search Tree
-        BinarySearchTree BST_Employees = new BinarySearchTree();
-        foreach (Employee employee in DataToBeSorted.employeeArray)
-        {
-            BST_Employees.Insert(employee);
-        }
-
-        DataToBeSorted.BST_Employees = BST_Employees;
-
-        #endregion End of Binary Search Tree Code
 
         #region Selection Sort
         //int lastCheckedElement = 1;
@@ -81,7 +71,6 @@ public class SortDataTask : Task
         #endregion End of Bubble Sort Code
 
         #region Merge Sort
-        //arrayToSort = MergeSort(arrayToSort);
         arrayToSort = MergeSort(arrayToSort);
         #endregion End of Merge Sort Code
 
@@ -90,6 +79,18 @@ public class SortDataTask : Task
         #endregion End of Quick Sort Code
 
         DataToBeSorted.employeeArray = arrayToSort;
+
+        #region Binary Search Tree
+        // Create a new BST instance
+        BST_Employees = new BinarySearchTree();
+
+        // Call the BST insertion function
+        BST_Insertion(arrayToSort, 0, arrayToSort.Length - 1);
+
+        // Save it to DataStorageTask
+        DataToBeSorted.BST_Employees = BST_Employees;
+        #endregion End of Binary Search Tree Code
+
     }
 
     #region Merge Sort
@@ -190,4 +191,38 @@ public class SortDataTask : Task
     //    return arrayToSort;
     //}
     #endregion End of Qick Sort Code
+
+    #region Binary Search Tree insertion
+    private void BST_Insertion(Employee[] SortedCollection, int minimumIndex, int maximumIndex)
+    {
+        // Early Exit condition so we dont recurse infinitely
+        if (maximumIndex - minimumIndex < 0 || 
+            (maximumIndex - minimumIndex) > SortedCollection.Length - 1) 
+        { return; }
+
+        // Calculate/find the median of the collection
+        int median = (maximumIndex + minimumIndex) / 2;
+
+        // add the median to the BST
+        BST_Employees.Insert(SortedCollection[median]);
+
+        // Move left by half of (maximumIndex - minimumIndex)
+        if (median - (maximumIndex - minimumIndex) > 0)
+        {
+            median -= (maximumIndex - minimumIndex);
+            
+            // Recurse
+            BST_Insertion(SortedCollection, minimumIndex, maximumIndex);
+        }
+        
+        // Move right by half of (maximumIndex - minimumIndex)
+        if (median + (maximumIndex - minimumIndex) < SortedCollection.Length - 1)
+        {
+            median += (maximumIndex - minimumIndex);
+
+            // Recurse
+            BST_Insertion(SortedCollection, minimumIndex, maximumIndex);
+        }
+    }
+    #endregion End of Binary Search Tree insertion code
 }
