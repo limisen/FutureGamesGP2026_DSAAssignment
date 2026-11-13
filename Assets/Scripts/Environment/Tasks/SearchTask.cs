@@ -166,11 +166,13 @@ public class SearchTask : Task
         // Early Exit condition so we dont recurse infinitely
         if (maximumIndex - minimumIndex <= 0)
         {
+            int index = minimumIndex + ((maximumIndex - minimumIndex) / 2);
+
             // If the only element in the collection is within the date range, return (a collection with) that element.
-            if (DataToBeSearched[minimumIndex].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[maximumIndex].lastEntranceInEngineRoomDate <= searchArgMax)
+            if (DataToBeSearched[index].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[index].lastEntranceInEngineRoomDate <= searchArgMax)
             {
                 List<Employee> singleElementList = new List<Employee>();
-                singleElementList.Add(DataToBeSearched[0]);
+                singleElementList.Add(DataToBeSearched[index]);
                 return singleElementList;
             }
             // Otherwise return null, indicating that there are no elements in the specified ranges.
@@ -181,7 +183,7 @@ public class SearchTask : Task
         int median = minimumIndex + ((maximumIndex - minimumIndex) / 2);
 
 
-        // If this element (at the median index) is less than searchArgMin: move/overwrite the mimimumIndex to be equal to the median index.
+        // If this element (at the median index) is less than searchArgMin: move/overwrite the mimimumIndex to be equal to the median + 1.
         // Effectivly creating a collection containing only larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArgMin)
         {
@@ -191,7 +193,7 @@ public class SearchTask : Task
             return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
         }
 
-        // If this element (at the median index) is greater than searchArgMax: move/overwrite the maximumIndex to be equal to the median index.
+        // If this element (at the median index) is greater than searchArgMax: move/overwrite the maximumIndex to be equal to the median - 1.
         // Effectivly creating a collection containing only smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArgMax)
         {
@@ -201,8 +203,8 @@ public class SearchTask : Task
             return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
         }
 
-        // If the element at the median index is within the range [searchArgMin, searchArgMax], create and fill the return collection
-        if (DataToBeSearched[median].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
+        // If the element at the minimumIndex is equal or greater than searchArgMin, AND the element at the maximumIndex is equal or less than searchArgMax, create and fill the return collection with these elements
+        if (DataToBeSearched[minimumIndex].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
         {
             List<Employee> EmployeesMatchingSearchArg = new List<Employee>();
 
@@ -213,6 +215,20 @@ public class SearchTask : Task
 
             return EmployeesMatchingSearchArg;
         }
+        // decrese the search span even further
+        // raising the minimumIndex
+        else if (DataToBeSearched[minimumIndex].lastEntranceInEngineRoomDate >= searchArgMin)
+        { 
+            minimumIndex++;
+            return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
+        }
+        // Otherwise lowering the maximumIndex
+        else if (DataToBeSearched[median].lastEntranceInEngineRoomDate <= searchArgMax)
+        { 
+            maximumIndex--;
+            return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
+        }
+
         // otherwise return null, indicating that there are no elements in the specified range.
         return null;
     }
