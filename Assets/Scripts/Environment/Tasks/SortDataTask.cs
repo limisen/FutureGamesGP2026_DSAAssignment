@@ -203,10 +203,10 @@ public class SortDataTask : Task
         // add the median to the BST
         BST_Employees.Insert(SortedCollection[median]);
 
-        // Move left by half of (maximumIndex - minimumIndex)
+        // Move "left" excluding the median as we have already added it to the BST
         BST_TopDownInsertion(SortedCollection, minimumIndex, median - 1);
 
-        // Move right by half of (maximumIndex - minimumIndex)
+        // Move "right", excluding the median as we have already added it to the BST
         BST_TopDownInsertion(SortedCollection, median + 1, maximumIndex);
     }
     #endregion End of Binary Search Tree insertion code
