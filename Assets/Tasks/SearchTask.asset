@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SearchTask
   m_EditorClassIdentifier: Assembly-CSharp::SearchTask
   DataToBeSearched: {fileID: 11400000, guid: 190d0472f5bfe1a4daa5ba841d00f545, type: 2}
-  SearchArgMinString: 1977-01-01T00:00:00
+  SearchArgMinString: 2234-08-09T22:00:00
   SearchArgMaxString: 2234-08-09T23:00:01
   SingularSearchArgString: 2234-08-09T22:00:00
   foundElement:
@@ -23,31 +23,6 @@ MonoBehaviour:
     lastEntranceInEngineRoom: 
     lastExitFromEngineRoom: 
   foundElements:
-  - name: Nem Pugsley
-    employeeId: 447
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T20:57:36
-    lastExitFromEngineRoom: 2234-08-04T21:36:45
-  - name: Jasper Underwood
-    employeeId: 114
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T21:26:35
-    lastExitFromEngineRoom: 2234-08-07T01:05:19
-  - name: Florence Graves
-    employeeId: 547
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T21:27:20
-    lastExitFromEngineRoom: 2234-08-02T20:56:25
-  - name: Oscar Kingsley
-    employeeId: 378
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T21:41:54
-    lastExitFromEngineRoom: 2234-08-02T12:22:40
-  - name: River Thornfield
-    employeeId: 312
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T21:45:24
-    lastExitFromEngineRoom: 2234-08-05T19:26:48
   - name: Jasper Wellington
     employeeId: 47
     hasEngineRoomClearance: 1
@@ -68,16 +43,6 @@ MonoBehaviour:
     hasEngineRoomClearance: 1
     lastEntranceInEngineRoom: 2234-08-09T22:13:17
     lastExitFromEngineRoom: 2234-08-03T09:43:27
-  - name: Helena Wickham
-    employeeId: 621
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T23:15:58
-    lastExitFromEngineRoom: 2234-08-03T12:42:23
-  - name: Nora York
-    employeeId: 116
-    hasEngineRoomClearance: 1
-    lastEntranceInEngineRoom: 2234-08-09T23:34:24
-    lastExitFromEngineRoom: 2234-08-09T02:06:28
   BSTfoundElements:
   - name: Jasper Wellington
     employeeId: 47
