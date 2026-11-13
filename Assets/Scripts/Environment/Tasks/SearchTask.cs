@@ -7,12 +7,12 @@ using UnityEngine;
 public class SearchTask : Task
 {
     [SerializeField] DataStorageTask DataToBeSearched;
-
+    [Space]
     [SerializeField] string SearchArgMinString;
     [SerializeField] string SearchArgMaxString;
-
+    [Space]
     [SerializeField] string SingularSearchArgString;
-
+    [Space]
     [SerializeField] Employee foundElement;
     [SerializeField] List<Employee> foundElements;
     [SerializeField] List<Employee> BSTfoundElements;
