@@ -113,6 +113,7 @@ public class SearchTask : Task
         }
         #endregion End of Binary (Range) Search Tree Search code
 
+        #region Benchmark Results
         Debug.Log($"Each search function took the following time to complete:");
         Debug.Log($"Singular Binary Search: {SingularSearchTimeToExecuteTicks} ticks");
         Debug.Log($"Ranged Binary Search: {RangedSearchTimeToExecuteTicks} ticks");
@@ -121,6 +122,17 @@ public class SearchTask : Task
         Debug.Log($"Singular Binary Search: {SingularSearchTimeToExecuteMilliseconds} ms");
         Debug.Log($"Ranged Binary Search: {RangedSearchTimeToExecuteMilliseconds} ms");
         Debug.Log($"Binary Search Tree Search: {BSTSearchTimeToExecuteMilliseconds} ms");
+        #endregion End of Benchmark Results code
+
+        // In order to find the "killer" I simply look throught the result to see if they also exited withing the specified range. If they did, killer found
+        for (int i = 0; i < foundElements.Count; i++)
+        {
+            if (DateTime.Parse(foundElements[i].lastExitFromEngineRoom) >= SearchArgMin && DateTime.Parse(foundElements[i].lastExitFromEngineRoom) <= SearchArgMax)
+            {
+                Debug.Log($"Killer Found: {foundElements[i].name}");
+                break;
+            }
+        }
     }
 
     #region Singular Binary Search
