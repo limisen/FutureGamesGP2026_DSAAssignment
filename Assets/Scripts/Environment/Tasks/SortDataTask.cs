@@ -1,5 +1,4 @@
 using Environment.Tasks;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -85,12 +84,11 @@ public class SortDataTask : Task
         BST_Employees = new BinarySearchTree();
 
         // Call the BST insertion function
-        BST_Insertion(arrayToSort, 0, arrayToSort.Length - 1);
+        BST_TopDownInsertion(arrayToSort, 0, arrayToSort.Length - 1);
 
         // Save it to DataStorageTask
         DataToBeSorted.BST_Employees = BST_Employees;
         #endregion End of Binary Search Tree Code
-
     }
 
     #region Merge Sort
@@ -143,7 +141,7 @@ public class SortDataTask : Task
             sortedArray[k] = firstHalf[i];
             i++;
             k++;
-        } 
+        }
         while (j < secondHalf.Length)
         {
             sortedArray[k] = secondHalf[j];
@@ -193,36 +191,23 @@ public class SortDataTask : Task
     #endregion End of Qick Sort Code
 
     #region Binary Search Tree insertion
-    private void BST_Insertion(Employee[] SortedCollection, int minimumIndex, int maximumIndex)
+    private void BST_TopDownInsertion(Employee[] SortedCollection, int minimumIndex, int maximumIndex)
     {
         // Early Exit condition so we dont recurse infinitely
-        if (maximumIndex - minimumIndex < 0 || 
-            (maximumIndex - minimumIndex) > SortedCollection.Length - 1) 
+        if (minimumIndex > maximumIndex)
         { return; }
 
         // Calculate/find the median of the collection
-        int median = (maximumIndex + minimumIndex) / 2;
+        int median = (minimumIndex + maximumIndex) / 2;
 
         // add the median to the BST
         BST_Employees.Insert(SortedCollection[median]);
 
         // Move left by half of (maximumIndex - minimumIndex)
-        if (median - (maximumIndex - minimumIndex) > 0)
-        {
-            median -= (maximumIndex - minimumIndex);
-            
-            // Recurse
-            BST_Insertion(SortedCollection, minimumIndex, maximumIndex);
-        }
-        
-        // Move right by half of (maximumIndex - minimumIndex)
-        if (median + (maximumIndex - minimumIndex) < SortedCollection.Length - 1)
-        {
-            median += (maximumIndex - minimumIndex);
+        BST_TopDownInsertion(SortedCollection, minimumIndex, median - 1);
 
-            // Recurse
-            BST_Insertion(SortedCollection, minimumIndex, maximumIndex);
-        }
+        // Move right by half of (maximumIndex - minimumIndex)
+        BST_TopDownInsertion(SortedCollection, median + 1, maximumIndex);
     }
     #endregion End of Binary Search Tree insertion code
 }

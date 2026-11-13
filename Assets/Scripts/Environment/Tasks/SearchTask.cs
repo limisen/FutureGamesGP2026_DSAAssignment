@@ -131,7 +131,7 @@ public class SearchTask : Task
         if (maximumIndex - minimumIndex <= 1) { return null; }
 
         // Calculate/find the median of the collection
-        int median = (maximumIndex + minimumIndex) / 2;
+        int median = minimumIndex + ((maximumIndex - minimumIndex) / 2);
 
         // If the element at the median index is equal to the searchArg, return that element
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate == searchArg) { return DataToBeSearched[median]; }
@@ -140,7 +140,7 @@ public class SearchTask : Task
         // Effectivly creating a collection containing only larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArg)
         {
-            minimumIndex = median;
+            minimumIndex = median + 1;
 
             return SingularBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArg);
         }
@@ -149,7 +149,7 @@ public class SearchTask : Task
         // Effectivly creating a collection containing only smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArg)
         {
-            maximumIndex = median;
+            maximumIndex = median - 1;
 
             return SingularBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArg);
         }
@@ -164,7 +164,7 @@ public class SearchTask : Task
     private List<Employee> RangedBinarySearch(Employee[] DataToBeSearched, int minimumIndex, int maximumIndex, DateTime searchArgMin, DateTime searchArgMax)
     {
         // Early Exit condition so we dont recurse infinitely
-        if (maximumIndex - minimumIndex <= 1)
+        if (maximumIndex - minimumIndex <= 0)
         {
             // If the only element in the collection is within the date range, return (a collection with) that element.
             if (DataToBeSearched[minimumIndex].lastEntranceInEngineRoomDate >= searchArgMin && DataToBeSearched[maximumIndex].lastEntranceInEngineRoomDate <= searchArgMax)
@@ -178,23 +178,24 @@ public class SearchTask : Task
         }
 
         // Calculate/find the median of the collection
-        int median = (maximumIndex - minimumIndex) / 2;
+        int median = minimumIndex + ((maximumIndex - minimumIndex) / 2);
 
-        // If this element (at the median index) is less than searchArgMin: move/overwrite the mimimumIndex to be equal to median.
+
+        // If this element (at the median index) is less than searchArgMin: move/overwrite the mimimumIndex to be equal to the median index.
         // Effectivly creating a collection containing only larger elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate < searchArgMin)
         {
-            minimumIndex = median;
+            minimumIndex = median + 1;
 
             // Return the element if found
             return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
         }
 
-        // If this element (at the median index) is greater than searchArgMax: move/overwrite the maximumIndex to be equal to median.
+        // If this element (at the median index) is greater than searchArgMax: move/overwrite the maximumIndex to be equal to the median index.
         // Effectivly creating a collection containing only smaller elements and then recurse on that collection
         if (DataToBeSearched[median].lastEntranceInEngineRoomDate > searchArgMax)
         {
-            maximumIndex = median;
+            maximumIndex = median - 1;
 
             // Return the element if found
             return RangedBinarySearch(DataToBeSearched, minimumIndex, maximumIndex, searchArgMin, searchArgMax);
